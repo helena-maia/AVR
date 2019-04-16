@@ -1,0 +1,34 @@
+import os
+import argparse
+import shutil
+
+def getArgs():
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument("vr_dir", action='store', type=str, help="directory with visual rhythm images")
+    return parser.parse_args()
+
+args = getArgs()
+
+video_dir = os.listdir(args.vr_dir)
+
+for v in video_dir:
+    path = os.path.join(args.vr_dir, v)
+    
+    vr_images = os.listdir(path)
+    total = len(vr_images)
+
+#    print (v, total)
+
+    if(total == 0):
+        os.rmdir(path)
+        print("Vazio: ",path)
+    else:
+        for i in vr_images:
+            img_path = os.path.join(path,i)
+
+            if os.stat(img_path).st_size == 0: 
+                shutil.rmtree(path)
+                print ("Imagem 0 ",img_path)
+                break
+                
+    
