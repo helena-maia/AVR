@@ -21,14 +21,14 @@ for v in video_dir:
 
     if(total == 0):
         os.rmdir(path)
-        print("Vazio: ",path)
+        print("Empty: ",path)
     else:
         for i in vr_images:
             img_path = os.path.join(path,i)
 
             if os.stat(img_path).st_size == 0: 
                 shutil.rmtree(path)
-                print ("Imagem 0 ",img_path)
+                print ("0 byte image",img_path)
                 break
                 
     
