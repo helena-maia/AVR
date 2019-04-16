@@ -34,6 +34,9 @@ def run(enum, video):
                       criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
     # Take first frame and find corners in it
     ret, old_frame = cap.read()
+    
+    if(ret == False): return
+    
     old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
     p0 = cv2.goodFeaturesToTrack(old_gray, mask = None, **feature_params)
     # Create a mask image for drawing purposes
@@ -81,15 +84,20 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Determine the direction of movement by class of a given dataset')
     parser.add_argument('--src_dir', type=str, default='./UCF-101',
                         help='path to the video data')
-    parser.add_argument('--direction_path', type=str, help='path to direction file')
+    parser.add_argument('--direction_dir', type=str, help='path to direction file')
     parser.add_argument('--ext', type=str, default='avi', choices=['avi','mp4'],
                         help='video file extensions')
+    parser.add_argument('--class_name', type=str, default='')
 
     args = parser.parse_args()
     src_path = args.src_dir
     ext = args.ext
+    
 
-    vid_list = sorted(glob.glob(src_path+'/*.'+ext))
+    patt = os.path.join(src_path,"*"+args.class_name+"*."+ext)
+    
+    vid_list = sorted(glob.glob(patt))
+    
     list_name_vid = sorted([video.split('/')[-1].split('.')[0] for video in vid_list])
     list_class =sorted(set([video.split('_')[1] for video in list_name_vid]))
 
@@ -115,4 +123,4 @@ if __name__ == '__main__':
         idx = '2' if dic_final[label][0]>dic_final[label][1] else '1'
         direction.append(label+" "+idx+"\n")
 
-open(args.direction_path, 'w').writelines(direction)
+open(os.path.join(args.direction_dir,args.class_name+".txt"), 'w').writelines(direction)
