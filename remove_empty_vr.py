@@ -17,8 +17,6 @@ for v in video_dir:
     vr_images = os.listdir(path)
     total = len(vr_images)
 
-#    print (v, total)
-
     if(total == 0):
         os.rmdir(path)
         print("Empty: ",path)
