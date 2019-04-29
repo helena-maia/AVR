@@ -3,7 +3,7 @@ import numpy as np
 import argparse
 
 def getArgs():
-    parser = argparse.ArgumentParser(description='Download dataset.')
+    parser = argparse.ArgumentParser(description='Check missing files.')
     parser.add_argument("video_list", action='store', type=str, help="path to the list of subclips")
     parser.add_argument("vr_dir", action='store', type=str, help="directory with the visual rhythm images")
     parser.add_argument("missing_list", action='store', type=str, help="path to the output")
