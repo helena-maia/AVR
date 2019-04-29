@@ -123,4 +123,6 @@ if __name__ == '__main__':
         idx = '2' if dic_final[label][0]>dic_final[label][1] else '1'
         direction.append(label+" "+idx+"\n")
 
-open(os.path.join(args.direction_dir,args.class_name+".txt"), 'w').writelines(direction)
+name = args.class_name if args.class_name != '' else "direction"
+
+open(os.path.join(args.direction_dir,name+".txt"), 'w').writelines(direction)
