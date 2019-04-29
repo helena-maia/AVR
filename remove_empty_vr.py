@@ -3,7 +3,7 @@ import argparse
 import shutil
 
 def getArgs():
-    parser = argparse.ArgumentParser(description='')
+    parser = argparse.ArgumentParser(description='Remove empty folders and 0-byte images')
     parser.add_argument("vr_dir", action='store', type=str, help="directory with visual rhythm images")
     return parser.parse_args()
 
@@ -28,7 +28,7 @@ for v in video_dir:
 
             if os.stat(img_path).st_size == 0: 
                 shutil.rmtree(path)
-                print ("0 byte image",img_path)
+                print ("0-byte image",img_path)
                 break
                 
     
